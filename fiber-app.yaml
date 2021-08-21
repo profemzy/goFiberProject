@@ -14,6 +14,27 @@ spec:
       containers:
         - name: my-fiber-app
           image: fiber-app
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: fiber-secret
+                  key: host
+            - name: DB_PORT
+              value: '5432'
+            - name: DB_NAME
+              value: 'fiber'
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: fiber-secret
+                  key: user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fiber-secret
+                  key: password
+
           imagePullPolicy: Never
           resources:
             requests:
